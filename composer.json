@@ -1,8 +1,7 @@
 {
-    "name": "aka-e/project-website",
     "autoload": {
         "psr-4": {
-            "AkaE\\ProjectWebsite\\": "src/"
+            "ProjectWebsite\\": "src/"
         }
     },
     "require": {}
