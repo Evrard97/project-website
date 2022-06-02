@@ -1,0 +1,56 @@
+const data = {
+  products: [
+    {
+      name: "produit 1",
+      price: 10,
+      stock: 3,
+      category: "categorie 1",
+      mark: "Puma",
+      image: "/images/img0.jpg",
+      rating: 3.4,
+      description: "Bon produit",
+    },
+    {
+      name: "produit 2",
+      price: 100,
+      stock: 3,
+      mark: "Jordan",
+      category: "categorie 2",
+      image: "/images/img0.jpg",
+      rating: 3.4,
+      description: "Bon produit",
+    },
+    {
+      name: "produit 3",
+      price: 360,
+      stock: 3,
+      mark: "Nike",
+      category: "categorie 3",
+      image: "/images/img0.jpg",
+      rating: 3.4,
+      description: "Bon produit",
+    },
+    {
+      name: "produit 4",
+      price: 400,
+      stock: 3,
+      mark: "Jodane",
+      category: "categorie 4",
+      image: "/images/img0.jpg",
+      rating: 3.4,
+      description: "Bon produit",
+    },
+    {
+      name: "produit 5",
+      price: 100,
+      stock: 3,
+      mark: "Puma",
+      category: "categorie 5",
+      image: "/images/img0.jpg",
+      rating: 3.4,
+      description: "Bon produit",
+    },
+  ],
+};
+
+export default data;
