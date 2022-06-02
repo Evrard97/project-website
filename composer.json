@@ -1,8 +1,0 @@
-{
-    "autoload": {
-        "psr-4": {
-            "ProjectWebsite\\": "src/"
-        }
-    },
-    "require": {}
-}
