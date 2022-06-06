@@ -9,7 +9,7 @@ const data = {
       image: "/images/img0.jpg",
       rating: 3.4,
       description: "Bon produit",
-      reviews: 10,
+      nbreviews: 10,
     },
     {
       name: "produit 2",
@@ -20,7 +20,7 @@ const data = {
       image: "/images/img0.jpg",
       rating: 3.4,
       description: "Bon produit",
-      reviews: 10,
+      nbreviews: 10,
     },
     {
       name: "produit 3",
@@ -31,7 +31,7 @@ const data = {
       image: "/images/img0.jpg",
       rating: 3.4,
       description: "Bon produit",
-      reviews: 10,
+      nbreviews: 10,
     },
     {
       name: "produit 4",
@@ -42,7 +42,7 @@ const data = {
       image: "/images/img0.jpg",
       rating: 3.4,
       description: "Bon produit",
-      reviews: 10,
+      nbreviews: 10,
     },
     {
       name: "produit 5",
@@ -63,7 +63,7 @@ const data = {
       image: "/images/img0.jpg",
       rating: 3.4,
       description: "Bon produit",
-      reviews: 10,
+      nbreviews: 10,
     },
     {
       name: "produit 7",
@@ -74,7 +74,7 @@ const data = {
       image: "/images/img0.jpg",
       rating: 3.4,
       description: "Bon produit",
-      reviews: 10,
+      nbreviews: 10,
     },
   ],
 };
