@@ -37,7 +37,7 @@ const data = {
       name: "produit 4",
       price: 400,
       stock: 3,
-      mark: "Jodane",
+      mark: "Jodan",
       category: "categorie 4",
       image: "/images/img0.jpg",
       rating: 3.4,
