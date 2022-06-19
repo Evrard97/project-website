@@ -1,7 +1,9 @@
 import mongoose from "mongoose";
+import randomstring from "randomstring";
 const productSchema = new mongoose.Schema(
   {
-    name: { type: String, required: true, unique: true },
+    //_id: { type: String },
+    name: { type: String, required: true },
     price: { type: Number, required: true },
     stock: { type: Number, required: true },
     mark: { type: String, required: true },
@@ -9,12 +11,22 @@ const productSchema = new mongoose.Schema(
     image: { type: String, required: true },
     rating: { type: Number, required: true },
     description: { type: String, required: true },
-    nbreviews: { type: Number, required: false },
+    reviews: { type: Number, required: false },
+    reference: { type: String, required: true },
   },
   {
     timestamps: true,
   }
 );
+
+// productSchema.pre("save", async function (next) {
+//   this.reference = randomstring.generate({
+//     length: 12,
+//     charset: "alphabetic",
+//   });
+//   next();
+// });
+
 const Product = mongoose.model("Product", productSchema);
 
 export default Product;

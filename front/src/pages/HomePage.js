@@ -2,6 +2,10 @@ import { useEffect, useReducer } from "react";
 import axios from "axios";
 import logger from "use-reducer-logger";
 import Products from "../components/Products";
+import { Helmet } from "react-helmet-async";
+import Loading from "./../components/Loading";
+import { getErrorFromBackend } from "./../utils";
+import DisplayMessage from "./../components/DisplayMessage";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -30,7 +34,7 @@ function HomePage() {
         const result = await axios.get("/api/products/");
         dispatch({ type: "FETCH_SUCCESS", payload: result.data });
       } catch (err) {
-        dispatch({ type: "FETCH_FAIL", payload: err.message });
+        dispatch({ type: "FETCH_FAIL", payload: getErrorFromBackend(err) });
       }
     };
     fetchProducts();
@@ -38,18 +42,23 @@ function HomePage() {
 
   return (
     <>
+      <Helmet>
+        <title>Accueil</title>
+      </Helmet>
       <h1 className="text-blue-700 text-[33px] text-center">
         Liste des produits
       </h1>
       <div className="flex flex-wrap justify-center">
         {loading ? (
-          <div>Chargement des produits en cours...</div>
+          // <div>Chargement des produits en cours...</div>
+          <Loading />
         ) : error ? (
-          <div>{error}</div>
+          // <div>{error}</div>
+          <DisplayMessage variant="danger">{error}</DisplayMessage>
         ) : (
           products.map((product) => (
             // product div
-            <Products key={product._id} product={product}></Products>
+            <Products key={product.reference} product={product}></Products>
           ))
         )}
       </div>
