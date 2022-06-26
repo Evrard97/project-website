@@ -1,3 +1,4 @@
+// import { axios } from "axios";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
@@ -5,10 +6,26 @@ import { Store } from "./../Store";
 import DisplayMessage from "./../components/DisplayMessage";
 
 function Cart() {
-  const { state } = useContext(Store);
+  const { state, dispatch: ctxDispatch } = useContext(Store);
   const {
     cart: { cartItems },
   } = state;
+
+  const updateCartItem = (item, quantity) => {
+    if (item.stock < quantity) {
+      window.alert("Produit en rupture de stock");
+      return;
+    }
+    ctxDispatch({
+      type: "CART_ADD_ITEM",
+      payload: { ...item, quantity },
+    });
+  };
+
+  const deleteItem = (item) => {
+    ctxDispatch({ type: "CART_DELETE_ITEM", payload: item });
+    console.log(item);
+  };
 
   return (
     <div className="container mx-auto mt-10">
@@ -29,16 +46,16 @@ function Cart() {
         <div className="flex shadow-md my-10">
           <div className="w-[75%] bg-white px-10 py-10">
             <div className="flex mt-10 mb-5">
-              <h3 className="font-semibold text-gray-600 text-xs uppercase w-2/5">
+              <h3 className="font-semibold text-gray-600 text-[16px] uppercase w-[40%]">
                 Produits
               </h3>
-              <h3 className="font-semibold text-center text-gray-600 text-xs uppercase w-[20%]">
+              <h3 className="font-semibold text-center text-gray-600 text-[16px] uppercase w-[20%]">
                 Quantité
               </h3>
-              <h3 className="font-semibold text-center text-gray-600 text-xs uppercase w-[20%]">
+              <h3 className="font-semibold text-center text-gray-600 text-[16px] uppercase w-[20%]">
                 Prix
               </h3>
-              <h3 className="font-semibold text-center text-gray-600 text-xs uppercase w-[20%]">
+              <h3 className="font-semibold text-center text-gray-600 text-[16px] uppercase w-[20%]">
                 Total
               </h3>
             </div>
@@ -60,14 +77,20 @@ function Cart() {
                       <span className="font-bold text-sm">{item.name}</span>
                     </Link>
                     <span className="text-red-500 text-xs">{item.mark}</span>
-                    <span className="font-semibold hover:text-red-500 hover:cursor-pointer text-gray-500 text-xs">
+                    <span
+                      onClick={() => deleteItem(item)}
+                      className="font-semibold hover:text-red-500 hover:cursor-pointer text-gray-500 text-xs"
+                    >
                       Supprimer
                     </span>
                   </div>
                 </div>
                 <div className="flex justify-center w-[20%]">
                   {/* - */}
-                  <button disabled={item.quantity === 1}>
+                  <button
+                    onClick={() => updateCartItem(item, item.quantity - 1)}
+                    disabled={item.quantity === 1}
+                  >
                     <svg
                       className="fill-current text-gray-600 w-3 "
                       viewBox="0 0 448 512"
@@ -80,7 +103,10 @@ function Cart() {
                     {item.quantity}
                   </span>
                   {/* + */}
-                  <button disabled={item.quantity >= item.stock}>
+                  <button
+                    onClick={() => updateCartItem(item, item.quantity + 1)}
+                    disabled={item.quantity === item.stock}
+                  >
                     <svg
                       className="fill-current text-gray-600 w-3 "
                       viewBox="0 0 448 512"
@@ -129,7 +155,9 @@ function Cart() {
                 Frait de port
               </label>
               <select className="block p-2 text-gray-600 w-full text-sm">
+                <option value="-">Mode de Livraison</option>
                 <option value="10.00">Livraison standard - 10.00 €</option>
+                <option value="20.00">Livraison express - 20.00 €</option>
               </select>
             </div>
 

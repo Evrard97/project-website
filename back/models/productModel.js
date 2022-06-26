@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import randomstring from "randomstring";
 const productSchema = new mongoose.Schema(
   {
     //_id: { type: String },

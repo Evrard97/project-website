@@ -1,7 +1,25 @@
-import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { useNavigate, Link } from "react-router-dom";
 import Rating from "./Rating";
+import { Store } from "./../Store";
+// import { axios } from "axios";
 function Products(props) {
+  const navigate = useNavigate();
+
   const { product } = props;
+
+  const { state, dispatch: ctxDispatch } = useContext(Store);
+  const { cart } = state;
+
+  const addToCart = async () => {
+    const itemExist = cart.cartItems.find((item) => item._id === product._id);
+    const quantity = itemExist ? itemExist.quantity + 1 : 1;
+    ctxDispatch({
+      type: "CART_ADD_ITEM",
+      payload: { ...product, quantity },
+    });
+    navigate("/cart");
+  };
 
   return (
     <>
@@ -31,12 +49,12 @@ function Products(props) {
               {product.price}€
             </span>
             {product.stock > 0 ? (
-              <Link
-                to="#"
+              <button
+                onClick={addToCart}
                 className="ml-2 text-black bg-yellow-500 hover:bg-yellow-400 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
               >
                 Ajouter au panier
-              </Link>
+              </button>
             ) : (
               <p className="font-bold text-red-700">Non disposible</p>
             )}

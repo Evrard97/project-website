@@ -75,25 +75,25 @@ function Product() {
       ) : error ? (
         <DisplayMessage variant="danger">{error}</DisplayMessage>
       ) : (
-        <div class="w-full max-w-6xl rounded bg-white shadow-xl p-10 lg:p-20 mx-auto text-gray-800 relative md:text-left">
-          <div class="md:flex items-center -mx-10">
+        <div className="w-full max-w-6xl rounded bg-white shadow-xl p-10 lg:p-20 mx-auto text-gray-800 relative md:text-left">
+          <div className="md:flex items-center -mx-10">
             {/*Product image */}
-            <div class="w-full md:w-1/2 px-10 mb-10 md:mb-0">
-              <div class="relative">
+            <div className="w-full md:w-1/2 px-10 mb-10 md:mb-0">
+              <div className="relative">
                 <img
-                  class="w-full relative z-10"
+                  className="w-full relative z-10"
                   src={product.image}
                   alt={product.name}
                 />
               </div>
             </div>
             {/* product informations */}
-            <div class="w-full md:w-1/2 px-10">
-              <div class="mb-10">
+            <div className="w-full md:w-1/2 px-10">
+              <div className="mb-10">
                 <Helmet>
                   <title>{product.name}</title>
                 </Helmet>
-                <h1 class="font-bold uppercase text-2xl mb-5">
+                <h1 className="font-bold uppercase text-2xl mb-5">
                   {product.name}
                 </h1>
                 <span className="bg-blue-100 text-yellow-500 text-[15px] font-semibold mr-2 py-0.5 rounded dark:bg-blue-200 dark:text-yellow-400">
@@ -105,11 +105,11 @@ function Product() {
                 <p>
                   Status:{" "}
                   {product.stock > 0 ? (
-                    <span class="font-bold text-[15px] text-green-700">
+                    <span className="font-bold text-[15px] text-green-700">
                       Disponible
                     </span>
                   ) : (
-                    <span class="font-bold text-[15px] text-red-700">
+                    <span className="font-bold text-[15px] text-red-700">
                       Non disposible
                     </span>
                   )}
@@ -120,16 +120,16 @@ function Product() {
                 </p>
               </div>
               <div>
-                <div class="inline-block align-bottom mr-5">
-                  <span class="font-bold text-5xl leading-none align-baseline">
+                <div className="inline-block align-bottom mr-5">
+                  <span className="font-bold text-5xl leading-none align-baseline">
                     {product.price} {"€"}
                   </span>
                 </div>
                 {product.stock > 0 && (
-                  <div class="inline-block align-bottom">
+                  <div className="inline-block align-bottom">
                     <button
                       onClick={addToCart}
-                      class="bg-yellow-300 hover:bg-yellow-400 focus:ring-4 focus:ring-yellow-300 rounded-full px-10 py-2 font-semibold"
+                      className="bg-yellow-300 hover:bg-yellow-400 focus:ring-4 focus:ring-yellow-300 rounded-full px-10 py-2 font-semibold"
                     >
                       <i
                         className="fa fa-shopping-cart -ml-2 mr-2"

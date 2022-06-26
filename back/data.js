@@ -4,7 +4,7 @@ const data = {
     {
       name: "produit 1",
       price: 10,
-      stock: 0,
+      stock: 10,
       category: "categorie 1",
       mark: "Puma",
       image: "/images/cherries.jpg",
@@ -49,7 +49,7 @@ const data = {
     {
       name: "produit 4",
       price: 400,
-      stock: 3,
+      stock: 20,
       mark: "Jodan",
       category: "categorie 4",
       image: "/images/laptop.png",
