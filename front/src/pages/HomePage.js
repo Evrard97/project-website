@@ -6,6 +6,7 @@ import { Helmet } from "react-helmet-async";
 import Loading from "./../components/Loading";
 import { getErrorFromBackend } from "./../utils";
 import DisplayMessage from "./../components/DisplayMessage";
+import Footer from "../components/Footer";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -50,18 +51,16 @@ function HomePage() {
       </h1>
       <div className="flex flex-wrap justify-center">
         {loading ? (
-          // <div>Chargement des produits en cours...</div>
           <Loading />
         ) : error ? (
-          // <div>{error}</div>
           <DisplayMessage variant="danger">{error}</DisplayMessage>
         ) : (
           products.map((product) => (
-            // product div
             <Products key={product.reference} product={product}></Products>
           ))
         )}
       </div>
+      <Footer></Footer>
     </>
   );
 }

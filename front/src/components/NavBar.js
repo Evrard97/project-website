@@ -52,7 +52,7 @@ function NavBar() {
             Boutique
           </Link>
         </div>
-        <Link to="#" className="text-gray-200 hover:text-white transition">
+        <Link to="/login" className="text-gray-200 hover:text-white transition">
           Connexion/Inscription
         </Link>
       </div>

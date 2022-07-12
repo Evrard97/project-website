@@ -48,15 +48,22 @@ function Products(props) {
             <span className="text-3xl font-bold text-gray-900 dark:text-white">
               {product.price}€
             </span>
-            {product.stock > 0 ? (
+            {product.stock === 0 ? (
+              <button
+                // onClick={addToCart}
+                disabled
+                className="ml-2 text-black bg-red-600 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              >
+                Produit non disposible
+              </button>
+            ) : (
+              // <p className="font-bold text-red-700">Non disposible</p>
               <button
                 onClick={addToCart}
                 className="ml-2 text-black bg-yellow-500 hover:bg-yellow-400 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
               >
                 Ajouter au panier
               </button>
-            ) : (
-              <p className="font-bold text-red-700">Non disposible</p>
             )}
           </div>
         </div>

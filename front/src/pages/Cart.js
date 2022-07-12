@@ -1,11 +1,11 @@
-// import { axios } from "axios";
 import { Helmet } from "react-helmet-async";
-import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { Store } from "./../Store";
 import DisplayMessage from "./../components/DisplayMessage";
+import { useNavigate, Link } from "react-router-dom";
 
 function Cart() {
+  const navigate = useNavigate();
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const {
     cart: { cartItems },
@@ -25,6 +25,10 @@ function Cart() {
   const deleteItem = (item) => {
     ctxDispatch({ type: "CART_DELETE_ITEM", payload: item });
     console.log(item);
+  };
+
+  const payement = () => {
+    navigate("/signin?redirect=/checkout");
   };
 
   return (
@@ -172,7 +176,10 @@ function Cart() {
                   €
                 </span>
               </div>
-              <button className="bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full">
+              <button
+                onClick={payement}
+                className="bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full"
+              >
                 Payement
               </button>
             </div>

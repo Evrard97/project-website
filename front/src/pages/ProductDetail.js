@@ -8,6 +8,7 @@ import { getErrorFromBackend } from "./../utils";
 import DisplayMessage from "./../components/DisplayMessage";
 import { Store } from "./../Store";
 import { useContext } from "react";
+import Footer from "../components/Footer";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -147,6 +148,8 @@ function Product() {
           {/* <div class="">test</div> */}
         </div>
       )}
+
+      <Footer />
     </>
   );
 }
