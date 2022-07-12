@@ -1,14 +1,15 @@
 import { Link } from "react-router-dom";
 import { Store } from "./../Store";
 import { useContext } from "react";
-import logo from "../logo/E-COMMERCE.gif";
+import logo from "../logo/top-market-logo.gif";
+
 function HeadNav() {
   const { state } = useContext(Store);
   const { cart } = state;
   return (
     <div className="container flex items-center justify-between">
       <Link to="/" className="text-[25px] uppercase">
-        <img src={logo} alt="logo" className="w-[13vw] h-[10vw]" />
+        <img src={logo} alt="logo" className="h-[4vw]" />
       </Link>
 
       <div className="w-full.max-w-xl relative flex">
