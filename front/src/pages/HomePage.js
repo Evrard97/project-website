@@ -6,7 +6,6 @@ import { Helmet } from "react-helmet-async";
 import Loading from "./../components/Loading";
 import { getErrorFromBackend } from "./../utils";
 import DisplayMessage from "./../components/DisplayMessage";
-import Footer from "../components/Footer";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -44,7 +43,7 @@ function HomePage() {
   return (
     <>
       <Helmet>
-        <title>Accueil</title>
+        <title>Top Market - Accueil</title>
       </Helmet>
       <h1 className="text-blue-700 text-[33px] text-center">
         Liste des produits
@@ -60,7 +59,6 @@ function HomePage() {
           ))
         )}
       </div>
-      <Footer></Footer>
     </>
   );
 }

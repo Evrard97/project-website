@@ -35,7 +35,7 @@ function Cart() {
     <div className="container mx-auto mt-10">
       <div className="flex justify-between border-b pb-8">
         <Helmet>
-          <title>Panier</title>
+          <title>Top Market - Panier</title>
         </Helmet>
         <h1 className="font-semibold text-2xl">Panier</h1>
       </div>

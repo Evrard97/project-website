@@ -1,9 +1,10 @@
-import HomePage from "./pages/HomePage";
-import ProductDetail from "./pages/ProductDetail";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Cart from "./pages/Cart";
 import NavBar from "./components/NavBar";
 import HeadNav from "./components/HeadNav";
+import Footer from "./components/Footer";
+import HomePage from "./pages/HomePage";
+import ProductDetail from "./pages/ProductDetail";
+import Cart from "./pages/Cart";
 import Login from "./pages/Login";
 
 function App() {
@@ -24,6 +25,9 @@ function App() {
             <Route path="/login" element={<Login />} />
           </Routes>
         </main>
+        <footer>
+          <Footer/>
+        </footer>
       </>
     </BrowserRouter>
   );

@@ -8,7 +8,6 @@ import { getErrorFromBackend } from "./../utils";
 import DisplayMessage from "./../components/DisplayMessage";
 import { Store } from "./../Store";
 import { useContext } from "react";
-import Footer from "../components/Footer";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -92,7 +91,7 @@ function Product() {
             <div className="w-full md:w-1/2 px-10">
               <div className="mb-10">
                 <Helmet>
-                  <title>{product.name}</title>
+                  <title>Top Market - {product.name}</title>
                 </Helmet>
                 <h1 className="font-bold uppercase text-2xl mb-5">
                   {product.name}
@@ -148,8 +147,6 @@ function Product() {
           {/* <div class="">test</div> */}
         </div>
       )}
-
-      <Footer />
     </>
   );
 }
