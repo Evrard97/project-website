@@ -2,6 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import productRouter from "./routes/productRouter.js";
+import userRouter from "./routes/userRouter.js";
 
 dotenv.config();
 
@@ -22,6 +23,7 @@ mongoose
   });
 
 app.use("/api/products", productRouter);
+app.use("/api/users", userRouter);
 app.get("/", (req, res) => {
   res.send("Server is ready");
 });

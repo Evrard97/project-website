@@ -6,7 +6,6 @@ import { Helmet } from "react-helmet-async";
 import Loading from "./../components/Loading";
 import { getErrorFromBackend } from "./../utils";
 import DisplayMessage from "./../components/DisplayMessage";
-import Footer from "../components/Footer";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -60,7 +59,6 @@ function HomePage() {
           ))
         )}
       </div>
-      <Footer></Footer>
     </>
   );
 }

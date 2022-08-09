@@ -28,7 +28,7 @@ function Cart() {
   };
 
   const payement = () => {
-    navigate("/signin?redirect=/checkout");
+    navigate("/login?redirect=/deliveryAdress");
   };
 
   return (
