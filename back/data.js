@@ -1,5 +1,23 @@
 import Randomstring from "randomstring";
+import bcrypt from "bcryptjs";
+
 const data = {
+  users: [
+    {
+      pseudo: "User",
+      fullname: "test test",
+      email: "test@gmail.com",
+      password: bcrypt.hashSync("test"),
+      isAdmin: false,
+    },
+    {
+      pseudo: "Admin",
+      fullname: "Admin Admin",
+      email: "admin@gmail.com",
+      password: bcrypt.hashSync("admin"),
+      isAdmin: true,
+    },
+  ],
   products: [
     {
       name: "produit 1",

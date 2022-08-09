@@ -1,15 +1,22 @@
 import HomePage from "./pages/HomePage";
 import ProductDetail from "./pages/ProductDetail";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Cart from "./pages/Cart";
 import NavBar from "./components/NavBar";
 import HeadNav from "./components/HeadNav";
 import Login from "./pages/Login";
+import Footer from "./components/Footer";
+import DeliveryAddress from "./pages/DeliveryAddress";
+import PaymentMethod from "./pages/PaymentMethod";
+import PlaceOrder from "./pages/PlaceOrder";
 
 function App() {
   return (
     <BrowserRouter>
       <>
+        <ToastContainer position="bottom-center" limit={1} />
         <header className="py-4 shadow-sm bg-white">
           <HeadNav />
         </header>
@@ -21,9 +28,15 @@ function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/product/:reference" element={<ProductDetail />} />
             <Route path="/cart" element={<Cart />} />
+            <Route path="/deliveryAdress" element={<DeliveryAddress />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/payment" element={<PaymentMethod />} />
+            <Route path="/placeholder" element={<PlaceOrder />} />
           </Routes>
         </main>
+        <footer>
+          <Footer></Footer>
+        </footer>
       </>
     </BrowserRouter>
   );

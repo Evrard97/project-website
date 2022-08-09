@@ -3,12 +3,12 @@ import { useEffect, useReducer } from "react";
 import axios from "axios";
 import Rating from "../components/Rating";
 import { Helmet } from "react-helmet-async";
-import Loading from "./../components/Loading";
-import { getErrorFromBackend } from "./../utils";
-import DisplayMessage from "./../components/DisplayMessage";
-import { Store } from "./../Store";
+import Loading from "../components/Loading";
+import { getErrorFromBackend } from "../utils";
+import DisplayMessage from "../components/DisplayMessage";
+import { Store } from "../Store";
 import { useContext } from "react";
-import Footer from "../components/Footer";
+import { toast } from "react-toastify";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -58,7 +58,7 @@ function Product() {
     const { data } = await axios.get(`/api/products/${product._id}`);
 
     if (data.stock < quantity) {
-      window.alert("Produit en rupture de stock");
+      toast.error("Produit en rupture de stock");
       return;
     }
 
@@ -148,8 +148,6 @@ function Product() {
           {/* <div class="">test</div> */}
         </div>
       )}
-
-      <Footer />
     </>
   );
 }

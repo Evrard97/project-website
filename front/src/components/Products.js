@@ -2,7 +2,8 @@ import { useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import Rating from "./Rating";
 import { Store } from "./../Store";
-// import { axios } from "axios";
+import axios from "axios";
+import { toast } from "react-toastify";
 function Products(props) {
   const navigate = useNavigate();
 
@@ -14,6 +15,13 @@ function Products(props) {
   const addToCart = async () => {
     const itemExist = cart.cartItems.find((item) => item._id === product._id);
     const quantity = itemExist ? itemExist.quantity + 1 : 1;
+
+    const { data } = await axios.get(`/api/products/${product._id}`);
+    if (data.stock < quantity) {
+      toast.error("Produit en rupture de stock");
+      return;
+    }
+
     ctxDispatch({
       type: "CART_ADD_ITEM",
       payload: { ...product, quantity },

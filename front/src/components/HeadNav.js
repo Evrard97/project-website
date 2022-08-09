@@ -1,14 +1,14 @@
 import { Link } from "react-router-dom";
 import { Store } from "./../Store";
 import { useContext } from "react";
-import logo from "../logo/E-COMMERCE.gif";
+import logo from "../logo/top-market-logo.gif";
 function HeadNav() {
   const { state } = useContext(Store);
   const { cart } = state;
   return (
     <div className="container flex items-center justify-between">
       <Link to="/" className="text-[25px] uppercase">
-        <img src={logo} alt="logo" className="w-[13vw] h-[10vw]" />
+        <img src={logo} alt="logo" className="h-[4vw]" />
       </Link>
 
       <div className="w-full.max-w-xl relative flex">
@@ -20,12 +20,12 @@ function HeadNav() {
           className="w-full border border-indigo-500 border-r-0 pl-12 py-3 pr-3 rounded-1-md focus:outline-none"
           placeholder="Recherche"
         ></input>
-        <button className="bg-indigo-500 border border-indigo-500 text-white px-8 rounded-r-md hover:bg-transparent hover:text-red-400 transition">
+        <button className="bg-indigo-500 border border-indigo-500 text-white px-8 rounded-r-md hover:bg-transparent hover:bg-indigo-700 transition">
           Recherche
         </button>
       </div>
       <div className="flex items-center space-x-4">
-        <Link
+        {/* <Link
           to="#"
           className="text-center text-gray-700 hover:text-red-400 transition relative"
         >
@@ -36,7 +36,7 @@ function HeadNav() {
           <span className="absolute right-0 -top-1 w-5 h-5 rounded-full flex items-center justify-center bg-red-400 text-white text-xs">
             7
           </span>
-        </Link>
+        </Link> */}
 
         <Link
           to="/cart"
