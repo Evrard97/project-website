@@ -1,5 +1,5 @@
 import { Helmet } from "react-helmet-async";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { Store } from "./../Store";
 import { useNavigate } from "react-router-dom";
 import StepsPayment from "../components/StepsPayment";
@@ -7,30 +7,94 @@ import StepsPayment from "../components/StepsPayment";
 export default function PlaceOrder() {
   const navigate = useNavigate();
   const { state, dispatch: ctxDispatch } = useContext(Store);
-  const {
-    cart: { cartItems },
-  } = state;
+  const { cart } = state;
 
-  const payement = () => {
-    navigate("/login?redirect=/deliveryAdress");
-  };
+  // calcule
+  /*
+   *runded convert values like 45.4578 to 45.45
+   */
+  const rounded = (number) => Math.round(number * 100 + Number.EPSILON) / 100;
+  cart.itemsPrice = rounded(
+    cart.cartItems.reduce((a, c) => a + c.quantity * c.price, 0)
+  );
+  cart.totalItems = cart.cartItems.reduce((sum, ca) => sum + ca.quantity, 0);
+  cart.taxPrice = rounded(0.15 * cart.itemsPrice);
+  cart.totalPrice = cart.itemsPrice + cart.taxPrice;
+
+  const payment = async () => {};
+
   const edit = () => {
     navigate("/cart");
   };
+
+  const editAddress = () => {
+    navigate("/deliveryAdress");
+  };
+
+  const editPaymentMethod = () => {
+    navigate("/payment");
+  };
+
+  useEffect(() => {
+    if (!cart.paymentMethod) {
+      navigate("/payment");
+    }
+  }, [cart, navigate]);
   return (
     <div className="container mx-auto mt-10">
       <Helmet>
         <title>Paiement</title>
       </Helmet>
+
       <StepsPayment step1 step2 step3 step4></StepsPayment>
-      <div className="flex justify-between border-b pb-8">
-        <h1 className="font-semibold text-2xl text-center">
-          Résumé de la commande
+
+      <h1 className="font-bold text-[40px] pt-4">Résumé de la commande</h1>
+      {/* delivery address */}
+
+      <div id="summary" className="w-[25%] px-4 py-8 ">
+        <h1 className="font-bold text-md border-b pb-2">
+          Adresse de livraison
         </h1>
+        <div className="flex justify-between mt-4 mb-5">
+          <span className="font-semibold text-sm uppercase">
+            <strong> Nom : </strong>
+            {cart.deliveryAddress.name} {""} {cart.deliveryAddress.firstname}
+            <br />
+            <strong> Adresse: </strong>
+            {cart.deliveryAddress.address}, {cart.deliveryAddress.postalCode},
+            {cart.deliveryAddress.city}, {cart.deliveryAddress.selectedCountry}
+          </span>
+          <span
+            onClick={() => editAddress()}
+            className="font-semibold hover:text-red-500 hover:cursor-pointer text-gray-500 text-md"
+          >
+            Modifier
+          </span>
+        </div>
       </div>
+      {/* Payment method */}
+
+      <div id="summary" className="w-[25%] px-4 py-8">
+        <h1 className="font-bold text-md border-b pb-2">Methode de paiement</h1>
+        <div className="flex justify-between mt-4 mb-5">
+          <span className="font-semibold text-sm uppercase">
+            <strong> Methode de paiement: </strong>
+            {cart.paymentMethod}
+          </span>
+          <span> {""}</span>
+          <span
+            onClick={() => editPaymentMethod()}
+            className="font-semibold hover:text-red-500 hover:cursor-pointer text-gray-500 text-md"
+          >
+            Modifier
+          </span>
+        </div>
+      </div>
+
+      {/*  */}
       <div className="flex shadow-md my-10">
         <div className="w-[75%] bg-white px-10 py-10">
-          <div className="flex mt-10 mb-5">
+          <div className="flex mt-4 mb-5">
             <h3 className="font-semibold text-gray-600 text-[16px] uppercase w-[40%]">
               Produits
             </h3>
@@ -45,7 +109,7 @@ export default function PlaceOrder() {
             </h3>
           </div>
 
-          {cartItems.map((item) => (
+          {cart.cartItems.map((item) => (
             <div key={item._id} className="flex items-center -mx-8 px-6 py-5">
               <div className="flex w-[40%]">
                 <div className="w-20">
@@ -78,30 +142,30 @@ export default function PlaceOrder() {
         </div>
         <div id="summary" className="w-[25%] px-8 py-10">
           <h1 className="font-semibold text-2xl border-b pb-8">
-            Passer la commande
+            Montant de la commande
           </h1>
           <div className="flex justify-between mt-10 mb-5">
             <span className="font-semibold text-sm uppercase">
-              {cartItems.reduce((sum, ca) => sum + ca.quantity, 0)} article(s)
+              {cart.totalItems} article(s)
             </span>
-            <span className="font-semibold text-sm">
-              {cartItems.reduce((sum, ca) => sum + ca.price * ca.quantity, 0)} €
-            </span>
+            <span className="font-semibold text-sm">{cart.itemsPrice} €</span>
+          </div>
+
+          <div className="flex font-semibold justify-between py-6 text-sm uppercase">
+            <span>Taxe</span>
+            <span>{cart.taxPrice} €</span>
           </div>
 
           <div className="border-t mt-8">
             <div className="flex font-semibold justify-between py-6 text-sm uppercase">
-              <span>Total</span>
-              <span>
-                {cartItems.reduce((sum, ca) => sum + ca.price * ca.quantity, 0)}{" "}
-                €
-              </span>
+              <span className="font-bold">Total</span>
+              <span>{cart.totalPrice} €</span>
             </div>
             <button
-              onClick={payement}
+              onClick={payment}
               className="bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full"
             >
-              Payement
+              Paiement
             </button>
           </div>
         </div>
