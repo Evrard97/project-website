@@ -137,6 +137,9 @@ export default function Order() {
     <DisplayMessage></DisplayMessage>
   ) : (
     <div>
+      <Helmet>
+        <title>Commande</title>
+      </Helmet>
       <h1>Commande {order._id}</h1>
       <div className="row top">
         <div className="col-2">

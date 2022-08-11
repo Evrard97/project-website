@@ -33,11 +33,9 @@ export default function OrderList() {
     const fetchData = async () => {
       dispatch({ type: "FETCH_REQUEST" });
       try {
-        const { data } = await axios.get(
-          `/api/orders/list`,
-
-          { headers: { Authorization: `Verify${userInfo.data.token}` } }
-        );
+        const { data } = await axios.get(`/api/orders/list`, {
+          headers: { Authorization: `Verify${userInfo.data.token}` },
+        });
         dispatch({ type: "FETCH_SUCCESS", payload: data });
       } catch (error) {
         dispatch({
@@ -51,7 +49,10 @@ export default function OrderList() {
 
   return (
     <div>
-      <h1>Order History</h1>
+      <Helmet>
+        <title>Historique des commandes</title>
+      </Helmet>
+      <h1>Historique des commandes</h1>
       {loading ? (
         <Loading></Loading>
       ) : error ? (
@@ -62,9 +63,9 @@ export default function OrderList() {
             <tr>
               <th>ID</th>
               <th>DATE</th>
-              <th>TOTAL</th>
-              <th>PAYE</th>
-              <th>DELIVRER</th>
+              <th>MONTANT</th>
+              <th>PAYER</th>
+              <th>LIVRER</th>
               <th>ACTIONS</th>
             </tr>
           </thead>
@@ -78,7 +79,7 @@ export default function OrderList() {
                 <td>
                   {order.isDelivered
                     ? order.deliveredAt.substring(0, 10)
-                    : "No"}
+                    : "Non"}
                 </td>
                 <td>
                   <button
