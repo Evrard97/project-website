@@ -41,9 +41,7 @@ function App() {
             <Route path="/profile" element={<Profile />}></Route>
           </Routes>
         </main>
-        <footer>
-          <Footer></Footer>
-        </footer>
+        <Footer />
       </>
     </BrowserRouter>
   );
