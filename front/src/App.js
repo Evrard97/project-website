@@ -41,7 +41,7 @@ function App() {
             <Route path="/profile" element={<Profile />}></Route>
           </Routes>
         </main>
-        <footer>
+        <footer className="absolute bottom-0 w-full">
           <Footer></Footer>
         </footer>
       </>
