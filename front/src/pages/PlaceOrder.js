@@ -103,124 +103,116 @@ export default function PlaceOrder() {
       <StepsPayment step1 step2 step3 step4></StepsPayment>
 
       <h1 className="font-bold text-[40px] pt-4">Passer la commande</h1>
-      {/* delivery address */}
 
-      <div id="summary" className="w-[25%] px-4 py-8 ">
-        <h1 className="font-bold text-md border-b pb-2">
-          Adresse de livraison
-        </h1>
-        <div className="flex justify-between mt-4 mb-5">
-          <span className="font-semibold text-sm uppercase">
-            <strong> Nom : </strong>
-            {cart.deliveryAddress.name} {""} {cart.deliveryAddress.firstname}
-            <br />
-            <strong> Adresse: </strong>
-            {cart.deliveryAddress.address}, {cart.deliveryAddress.postalCode},
-            {cart.deliveryAddress.city}, {cart.deliveryAddress.selectedCountry}
-          </span>
-          <span
-            onClick={() => editAddress()}
-            className="font-semibold hover:text-red-500 hover:cursor-pointer text-gray-500 text-md"
-          >
-            Modifier
-          </span>
-        </div>
-      </div>
-      {/* Payment method */}
-
-      <div id="summary" className="w-[25%] px-4 py-8">
-        <h1 className="font-bold text-md border-b pb-2">Methode de paiement</h1>
-        <div className="flex justify-between mt-4 mb-5">
-          <span className="font-semibold text-sm uppercase">
-            <strong> Methode de paiement: </strong>
-            {cart.paymentMethod}
-          </span>
-          <span> {""}</span>
-          <span
-            onClick={() => editPaymentMethod()}
-            className="font-semibold hover:text-red-500 hover:cursor-pointer text-gray-500 text-md"
-          >
-            Modifier
-          </span>
-        </div>
-      </div>
-
-      {/*  */}
-      <div className="flex shadow-md my-10">
-        <div className="w-[75%] bg-white px-10 py-10">
-          <div className="flex mt-4 mb-5">
-            <h3 className="font-semibold text-gray-600 text-[16px] uppercase w-[40%]">
-              Produits
-            </h3>
-            <h3 className="font-semibold text-center text-gray-600 text-[16px] uppercase w-[20%]">
-              Quantité
-            </h3>
-            <h3 className="font-semibold text-center text-gray-600 text-[16px] uppercase w-[20%]">
-              Prix
-            </h3>
-            <h3 className="font-semibold text-center text-gray-600 text-[16px] uppercase w-[20%]">
-              Total
-            </h3>
-          </div>
-
-          {cart.cartItems.map((item) => (
-            <div key={item._id} className="flex items-center -mx-8 px-6 py-5">
-              <div className="flex w-[40%]">
-                <div className="w-20">
-                  <img className="w-24 h-24" src={item.image} alt={item.name} />{" "}
-                </div>
-                <div className="flex flex-col justify-between ml-4 flex-grow">
-                  <span className="font-bold text-sm">{item.name}</span>
-                  <span className="text-red-500 text-xs">{item.mark}</span>
-                  <span
-                    onClick={() => edit()}
-                    className="font-semibold hover:text-red-500 hover:cursor-pointer text-gray-500 text-xs"
-                  >
-                    Modifier
-                  </span>
-                </div>
-              </div>
-              <div className="flex justify-center w-[20%]">
-                <span className="mx-2 border text-center w-8">
-                  {item.quantity}
+      <div className="row top">
+        <div className="col-2">
+          <ul>
+            {/* delivery address */}
+            <li>
+              <div className="card card-body">
+                <h1 className="font-bold text-md border-b pb-2">
+                  Adresse de livraison
+                </h1>
+                <p className="font-semibold text-sm uppercase">
+                  <strong>Nom : </strong>
+                  { cart.deliveryAddress.name } { "" } { cart.deliveryAddress.firstname }
+                  <br />
+                  <strong>Adresse : </strong>
+                  { cart.deliveryAddress.address }, { cart.deliveryAddress.postalCode }, { cart.deliveryAddress.city }, { cart.deliveryAddress.selectedCountry }
+                </p>
+                <span
+                  onClick={() => editAddress()}
+                  className="font-semibold hover:tex-red-500 hover:cursor-pointer text-gray-500 text-md"
+                >
+                  Modifier
                 </span>
               </div>
-              <span className="text-center w-[20%] font-semibold text-sm">
-                {item.price} €
-              </span>
-              <span className="text-center w-[20%] font-semibold text-sm">
-                {item.price * item.quantity}€
-              </span>
-            </div>
-          ))}
+            </li>
+            {/* Payment method */}
+            <li>
+              <div className="card card-body">
+                <h1 className="font-bold text-md border-b pb-2">
+                  Paiement
+                </h1>
+                <p className="font-semibold text-sm uppercase">
+                  <strong>Méthode de paiement : </strong>
+                  { cart.paymentMethod }
+                </p>
+                <span
+                  onClick={() => editPaymentMethod()}
+                  className="font-semibold hover:text-red-500 hover:cursor-pointer text-gray-500 text-md"
+                >
+                  Modifier
+                </span>
+              </div>
+            </li>
+            {/* Articles */}
+            <li>
+              <div className="card card-body">
+                <h1 className="font-bold text-md border-b pb-2">
+                  Articles
+                </h1>
+                <ul>
+                  { cart.cartItems.map((item) => (
+                    <li key={ item._id }>
+                      <div className="row">
+                        <div>
+                          <img className="small" src={ item.image } alt={ item.name } />
+                        </div>
+                        <div className="min-30">
+                          { item.name }
+                          <br />
+                          <span
+                            onClick={() => edit() }
+                            className="font-semibold hover:text-red-500 hover:cursor-pointer text-gray-500 text-xs"
+                          >
+                            Modifier
+                          </span>
+                        </div>
+                        <div>
+                          { item.quantity } x { item.price } € = { item.quantity * item.price } €
+                        </div>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </li>
+          </ul>
         </div>
-        <div id="summary" className="w-[25%] px-8 py-10">
-          <h1 className="font-semibold text-2xl border-b pb-8">
-            Montant de la commande
-          </h1>
-          <div className="flex justify-between mt-10 mb-5">
-            <span className="font-semibold text-sm uppercase">
-              {cart.totalItems} article(s)
-            </span>
-            <span className="font-semibold text-sm">{cart.itemsPrice} €</span>
-          </div>
-
-          <div className="flex font-semibold justify-between py-6 text-sm uppercase">
-            <span>Taxe</span>
-            <span>{cart.taxPrice} €</span>
-          </div>
-
-          <div className="border-t mt-8">
-            <div className="flex font-semibold justify-between py-6 text-sm uppercase">
-              <span className="font-bold">Total</span>
-              <span>{cart.totalPrice} €</span>
-            </div>
-            <button
-              onClick={payment}
-              className="bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full"
-            >
-              Paiement
-            </button>
+        <div className="col-1">
+          <div className="card card-body">
+            <h1 className="font-bold text-md border-b pb-2">Montant de la commande</h1>
+            <ul className="font-semibold text-sm uppercase">
+              <li>
+                <div className="row">
+                  <div>{ cart.totalItems } article(s)</div>
+                  <div>{ cart.itemsPrice } €</div>
+                </div>
+              </li>
+              <li>
+                <div className="row">
+                  <div>Taxe</div>
+                  <div>{ cart.taxPrice } €</div>
+                </div>
+              </li>
+            </ul>
+            <ul className="border-t mt-8 uppercase font-bold">
+              <li>
+                <div className="row">
+                  <div>Total</div>
+                  <div>{ cart.totalPrice } €</div>
+                </div>
+              </li>
+              <li>
+                <button
+                  onClick={ payment }
+                  className="bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full"
+                >
+                  Paiement
+                </button>
+              </li>
+            </ul>
           </div>
           {loading && <Loading></Loading>}
         </div>
