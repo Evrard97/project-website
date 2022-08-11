@@ -1,13 +1,36 @@
 import { Helmet } from "react-helmet-async";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useReducer } from "react";
 import { Store } from "./../Store";
 import { useNavigate } from "react-router-dom";
 import StepsPayment from "../components/StepsPayment";
+import axios from "axios";
+import Loading from "./../components/Loading";
+import { toast } from "react-toastify";
+import { getErrorFromBackend } from "./../utils";
+
+// reducer
+const reducer = (state, action) => {
+  switch (action.type) {
+    case "CREATE_REQUEST":
+      return { ...state, loading: true };
+    case "CREATE_SUCCESS":
+      return { ...state, loading: false };
+    case "CREATE_FAIL":
+      return { ...state, loading: false };
+    default:
+      return state;
+  }
+};
 
 export default function PlaceOrder() {
   const navigate = useNavigate();
+
+  const [{ loading }, dispatch] = useReducer(reducer, {
+    loading: false,
+  });
+
   const { state, dispatch: ctxDispatch } = useContext(Store);
-  const { cart } = state;
+  const { cart, userInfo } = state;
 
   // calcule
   /*
@@ -21,7 +44,38 @@ export default function PlaceOrder() {
   cart.taxPrice = rounded(0.15 * cart.itemsPrice);
   cart.totalPrice = cart.itemsPrice + cart.taxPrice;
 
-  const payment = async () => {};
+  /*
+   *send place order to the backend
+   */
+  const payment = async () => {
+    try {
+      dispatch({ type: "CREATE_REQUEST" });
+      const { data } = await axios.post(
+        "/api/orders",
+        {
+          orderItems: cart.cartItems,
+          deliveryAddress: cart.deliveryAddress,
+          paymentMethod: cart.paymentMethod,
+          totalItems: cart.totalItems,
+          itemsPrice: cart.itemsPrice,
+          taxPrice: cart.taxPrice,
+          totalPrice: cart.totalPrice,
+        },
+        {
+          headers: {
+            authorization: `Verify${userInfo.data.token}`,
+          },
+        }
+      );
+      ctxDispatch({ type: "CLEAR_CART" });
+      dispatch({ type: "CREATE_SUCCESS" });
+      localStorage.removeItem("cartItems");
+      navigate(`/order/${data.order._id}`);
+    } catch (err) {
+      dispatch({ type: "CREATE_FAIL" });
+      toast.error(getErrorFromBackend(err));
+    }
+  };
 
   const edit = () => {
     navigate("/cart");
@@ -48,7 +102,7 @@ export default function PlaceOrder() {
 
       <StepsPayment step1 step2 step3 step4></StepsPayment>
 
-      <h1 className="font-bold text-[40px] pt-4">Résumé de la commande</h1>
+      <h1 className="font-bold text-[40px] pt-4">Passer la commande</h1>
       {/* delivery address */}
 
       <div id="summary" className="w-[25%] px-4 py-8 ">
@@ -168,6 +222,7 @@ export default function PlaceOrder() {
               Paiement
             </button>
           </div>
+          {loading && <Loading></Loading>}
         </div>
       </div>
     </div>

@@ -25,19 +25,6 @@ function HeadNav() {
         </button>
       </div>
       <div className="flex items-center space-x-4">
-        {/* <Link
-          to="#"
-          className="text-center text-gray-700 hover:text-red-400 transition relative"
-        >
-          <div className="text-2xl">
-            <i className="fas fa-heart"></i>
-          </div>
-          <div className="text-xs leading-3">Favorie</div>
-          <span className="absolute right-0 -top-1 w-5 h-5 rounded-full flex items-center justify-center bg-red-400 text-white text-xs">
-            7
-          </span>
-        </Link> */}
-
         <Link
           to="/cart"
           className="text-center text-gray-700 hover:text-red-400 transition relative"

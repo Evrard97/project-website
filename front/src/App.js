@@ -11,6 +11,8 @@ import Footer from "./components/Footer";
 import DeliveryAddress from "./pages/DeliveryAddress";
 import PaymentMethod from "./pages/PaymentMethod";
 import PlaceOrder from "./pages/PlaceOrder";
+import Order from "./pages/Order";
+import OrderList from "./pages/OrderList";
 
 function App() {
   return (
@@ -31,7 +33,9 @@ function App() {
             <Route path="/deliveryAdress" element={<DeliveryAddress />} />
             <Route path="/login" element={<Login />} />
             <Route path="/payment" element={<PaymentMethod />} />
-            <Route path="/placeholder" element={<PlaceOrder />} />
+            <Route path="/placeorder" element={<PlaceOrder />} />
+            <Route path="/order/:id" element={<Order />} />
+            <Route path="/orderlist" element={<OrderList />}></Route>
           </Routes>
         </main>
         <footer>
