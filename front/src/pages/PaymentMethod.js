@@ -24,7 +24,7 @@ export default function PaymentMethod() {
     e.preventDefault();
     ctxDispatch({ tye: "SAVE_PAYMENT_METHOD", payload: paymentMethodName });
     localStorage.setItem("paymentMethod", paymentMethodName);
-    navigate("/placeholder");
+    navigate("/placeorder");
   };
   return (
     <div>
@@ -42,7 +42,6 @@ export default function PaymentMethod() {
               type="radio"
               id="paypal"
               value="PayPal"
-              name="paymentMethod"
               checked={paymentMethodName === "PayPal"}
               onChange={(e) => setPaymentMethod(e.target.value)}
             ></input>
@@ -55,7 +54,6 @@ export default function PaymentMethod() {
               type="radio"
               id="stripe"
               value="Stripe"
-              name="paymentMethod"
               checked={paymentMethodName === "Stripe"}
               onChange={(e) => setPaymentMethod(e.target.value)}
             ></input>
@@ -63,7 +61,7 @@ export default function PaymentMethod() {
           </div>
         </div>
         <div>
-          <button className="primary" type="submit">
+          <button className="small primary" type="submit">
             Suivant
           </button>
         </div>

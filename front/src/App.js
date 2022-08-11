@@ -11,8 +11,12 @@ import Footer from "./components/Footer";
 import DeliveryAddress from "./pages/DeliveryAddress";
 import PaymentMethod from "./pages/PaymentMethod";
 import PlaceOrder from "./pages/PlaceOrder";
+import Order from "./pages/Order";
+import OrderList from "./pages/OrderList";
+import Profile from "./pages/Profile";
 
 function App() {
+  // window.location.href = "/login";
   return (
     <BrowserRouter>
       <>
@@ -31,7 +35,10 @@ function App() {
             <Route path="/deliveryAdress" element={<DeliveryAddress />} />
             <Route path="/login" element={<Login />} />
             <Route path="/payment" element={<PaymentMethod />} />
-            <Route path="/placeholder" element={<PlaceOrder />} />
+            <Route path="/placeorder" element={<PlaceOrder />} />
+            <Route path="/order/:id" element={<Order />} />
+            <Route path="/orderlist" element={<OrderList />}></Route>
+            <Route path="/profile" element={<Profile />}></Route>
           </Routes>
         </main>
         <footer>
