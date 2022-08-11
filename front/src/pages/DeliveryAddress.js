@@ -66,17 +66,24 @@ export default function DeliveryAddress() {
   return (
     <>
       <Fragment>
-        <Helmet>Adresse de livraison</Helmet>
-        <StepsPayment step1 step2></StepsPayment>
-        <h1 className="font-bold text-[40px] px-8">Adresse de livraison</h1>
-        <div className="mt-10 sm:mt-0">
-          <div className="md:grid md:grid-cols-2 md:gap-6">
-            <div className="mt-5 md:mt-0 md:col-span-2">
-              <form onSubmit={submithandler}>
-                <div className="shadow overflow-hidden sm:rounded-md">
-                  <div className="px-4 py-5 bg-white sm:p-6">
-                    <div className="grid grid-cols-6 gap-6">
-                      <div className="col-span-6 sm:col-span-3">
+        <div className="container mx-auto mt-10">
+          <Helmet>
+            <title>Adresse de livraison</title>
+          </Helmet>
+
+          <StepsPayment step1 step2></StepsPayment>
+
+          <h1 className="font-bold text-[40px] pt-4">Adresse de livraison</h1>
+          <div className="row top">
+            <div className="col-1">
+              <form onSubmit={ submithandler }>
+                <ul>
+                  <li>
+                    <div className="card card-body">
+                      <h1 className="font-bold text-md border-b pb-2">
+                        Identité
+                      </h1>
+                      <p className="font-semibold text-sm">
                         <label
                           htmlFor="first-name"
                           className="block text-xl font-medium text-gray-700"
@@ -90,14 +97,12 @@ export default function DeliveryAddress() {
                           required
                           className="w-full h-[35px] border text-lg border-indigo-500 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block shadow-sm sm:text-sm rounded-md"
                         />
-                      </div>
-
-                      <div className="col-span-6 sm:col-span-3">
+                        <br />
                         <label
                           htmlFor="last-name"
                           className="block text-xl font-medium text-gray-700"
                         >
-                          Prenom
+                          Prénom
                         </label>
                         <input
                           type="text"
@@ -106,9 +111,7 @@ export default function DeliveryAddress() {
                           required
                           className="w-full h-[35px] border border-indigo-500 text-lg mt-1 focus:ring-indigo-500 focus:border-indigo-500 block shadow-sm sm:text-sm rounded-md"
                         />
-                      </div>
-
-                      <div className="col-span-6 sm:col-span-4">
+                        <br />
                         <label
                           htmlFor="email-address"
                           className="block text-xl font-medium text-gray-700"
@@ -122,9 +125,15 @@ export default function DeliveryAddress() {
                           required
                           className="w-full h-[35px] border border-indigo-500 text-lg mt-1 focus:ring-indigo-500 focus:border-indigo-500 block shadow-sm sm:text-sm rounded-md"
                         />
-                      </div>
-
-                      <div className="col-span-6 sm:col-span-3">
+                      </p>
+                    </div>
+                  </li>
+                  <li>
+                    <div className="card card-body">
+                      <h1 className="font-bold text-md border-b pb-2">
+                        Adresse postale
+                      </h1>
+                      <p className="font-semibold text-sm">
                         <label
                           htmlFor="country"
                           className="block text-xl font-medium text-gray-700"
@@ -134,6 +143,7 @@ export default function DeliveryAddress() {
                         <select
                           defaultValue={selectedCountry}
                           onChange={(e) => setSelectedCountry(e.target.value)}
+                          fireEvent={(e) => setSelectedCountry(e.target.value)}
                           className="w-full h-[35px] border text-lg border-indigo-500 mt-1 block py-2 px-3 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                         >
                           <option>France</option>
@@ -141,9 +151,21 @@ export default function DeliveryAddress() {
                           <option>Italie</option>
                           <option>Mexique</option>
                         </select>
-                      </div>
-
-                      <div className="col-span-6">
+                        <br />
+                        <label
+                          htmlFor="region"
+                          className="block text-xl font-medium text-gray-700"
+                        >
+                          Région
+                        </label>
+                        <input
+                          type="text"
+                          value={region}
+                          onChange={(e) => setRegion(e.target.value)}
+                          required
+                          className="w-full h-[35px] border border-indigo-500 text-lg mt-1 focus:ring-indigo-500 focus:border-indigo-500 block shadow-sm sm:text-sm rounded-md"
+                        />
+                        <br />
                         <label
                           htmlFor="street-address"
                           className="block text-xl font-medium text-gray-700"
@@ -157,9 +179,7 @@ export default function DeliveryAddress() {
                           required
                           className="w-full h-[35px] border border-indigo-500 text-lg mt-1 focus:ring-indigo-500 focus:border-indigo-500 block shadow-sm sm:text-sm rounded-md"
                         />
-                      </div>
-
-                      <div className="col-span-6 sm:col-span-6 lg:col-span-2">
+                        <br />
                         <label
                           htmlFor="city"
                           className="block text-xl font-medium text-gray-700"
@@ -173,25 +193,7 @@ export default function DeliveryAddress() {
                           required
                           className="w-full h-[35px] border border-indigo-500 text-lg mt-1 focus:ring-indigo-500 focus:border-indigo-500 block shadow-sm sm:text-sm rounded-md"
                         />
-                      </div>
-
-                      <div className="col-span-6 sm:col-span-3 lg:col-span-2">
-                        <label
-                          htmlFor="region"
-                          className="block text-xl font-medium text-gray-700"
-                        >
-                          Region
-                        </label>
-                        <input
-                          type="text"
-                          value={region}
-                          onChange={(e) => setRegion(e.target.value)}
-                          required
-                          className="w-full h-[35px] border border-indigo-500 text-lg mt-1 focus:ring-indigo-500 focus:border-indigo-500 block shadow-sm sm:text-sm rounded-md"
-                        />
-                      </div>
-
-                      <div className="col-span-6 sm:col-span-3 lg:col-span-2">
+                        <br />
                         <label
                           htmlFor="postal-code"
                           className="block text-xl font-medium text-gray-700"
@@ -205,17 +207,17 @@ export default function DeliveryAddress() {
                           required
                           className="w-full h-[35px] border border-indigo-500 text-lg mt-1 focus:ring-indigo-500 focus:border-indigo-500 block shadow-sm sm:text-sm rounded-md"
                         />
-                      </div>
+                      </p>
                     </div>
-                  </div>
-                  <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
-                    <button
-                      type="submit"
-                      className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                    >
-                      Suivant
-                    </button>
-                  </div>
+                  </li>
+                </ul>
+                <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
+                  <button
+                    type="submit"
+                    className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                  >
+                    Suivant
+                  </button>
                 </div>
               </form>
             </div>
