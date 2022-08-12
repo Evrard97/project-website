@@ -11,7 +11,6 @@ function NavBar() {
     localStorage.removeItem("userInfo");
     localStorage.removeItem("deliveryAddress");
     localStorage.removeItem("paymentMethod");
-    window.location.href = "/login";
   };
 
   return (

@@ -27,7 +27,18 @@ const reducer = (state, action) => {
       return { ...state, loadingPay: false };
     case "PAY_RESET":
       return { ...state, loadingPay: false, successPay: false };
-
+    case "DELIVER_REQUEST":
+      return { ...state, loadingDeliver: true };
+    case "DELIVER_SUCCESS":
+      return { ...state, loadingDeliver: false, successDeliver: true };
+    case "DELIVER_FAIL":
+      return { ...state, loadingDeliver: false };
+    case "DELIVER_RESET":
+      return {
+        ...state,
+        loadingDeliver: false,
+        successDeliver: false,
+      };
     default:
       return state;
   }
@@ -42,14 +53,24 @@ export default function Order() {
   const { state } = useContext(Store);
   const { userInfo } = state;
 
-  const [{ loading, error, order, successPay, loadingPay }, dispatch] =
-    useReducer(reducer, {
-      loading: true,
-      order: {},
-      error: "",
-      successPay: false,
-      loadingPay: false,
-    });
+  const [
+    {
+      loading,
+      error,
+      order,
+      successPay,
+      loadingPay,
+      loadingDeliver,
+      successDeliver,
+    },
+    dispatch,
+  ] = useReducer(reducer, {
+    loading: true,
+    order: {},
+    error: "",
+    successPay: false,
+    loadingPay: false,
+  });
 
   const [{ isPending }, paypalDispatch] = usePayPalScriptReducer();
 
@@ -108,10 +129,18 @@ export default function Order() {
       return navigate("/login");
     }
 
-    if (!order._id || successPay || (order._id && order._id !== orderId)) {
+    if (
+      !order._id ||
+      successPay ||
+      successDeliver ||
+      (order._id && order._id !== orderId)
+    ) {
       fetchOrder();
       if (successPay) {
         dispatch({ type: "PAY_RESET" });
+      }
+      if (successDeliver) {
+        dispatch({ type: "DELIVER_RESET" });
       }
     } else {
       const loadPaypalScript = async () => {
@@ -129,7 +158,33 @@ export default function Order() {
       };
       loadPaypalScript();
     }
-  }, [order, userInfo, orderId, navigate, paypalDispatch, successPay]);
+  }, [
+    order,
+    userInfo,
+    orderId,
+    navigate,
+    paypalDispatch,
+    successPay,
+    successDeliver,
+  ]);
+
+  async function deliverOrderHandler() {
+    try {
+      dispatch({ type: "DELIVER_REQUEST" });
+      const { data } = await axios.put(
+        `/api/orders/${order._id}/deliver`,
+        {},
+        {
+          headers: { authorization: `Verify${userInfo.data.token}` },
+        }
+      );
+      dispatch({ type: "DELIVER_SUCCESS", payload: data });
+      toast.success("Commande livrée avec success");
+    } catch (err) {
+      toast.error(getErrorFromBackend(err));
+      dispatch({ type: "DELIVER_FAIL" });
+    }
+  }
 
   return loading ? (
     <Loading></Loading>
@@ -258,6 +313,16 @@ export default function Order() {
                   )}
                   {loadingPay && <Loading></Loading>}
                 </li>
+              )}
+              {userInfo.data.isAdmin && order.isPaid && !order.isDelivered && (
+                <div>
+                  {loadingDeliver && <Loading></Loading>}
+                  <div className="d-grid">
+                    <button onClick={deliverOrderHandler}>
+                      Livrer la commande
+                    </button>
+                  </div>
+                </div>
               )}
             </ul>
           </div>

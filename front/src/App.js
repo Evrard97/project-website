@@ -14,9 +14,12 @@ import PlaceOrder from "./pages/PlaceOrder";
 import Order from "./pages/Order";
 import OrderList from "./pages/OrderList";
 import Profile from "./pages/Profile";
+import ProtectedRoute from "./components/ProtectedRoute";
+import AdminDashboard from "./pages/AdminDashboard";
+import AdminRoute from "./components/AdminRoute";
+import ProductList from "./pages/ProdutsList";
 
 function App() {
-  // window.location.href = "/login";
   return (
     <BrowserRouter>
       <>
@@ -36,9 +39,42 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/payment" element={<PaymentMethod />} />
             <Route path="/placeorder" element={<PlaceOrder />} />
-            <Route path="/order/:id" element={<Order />} />
+            <Route
+              path="/order/:id"
+              element={
+                <ProtectedRoute>
+                  <Order />
+                </ProtectedRoute>
+              }
+            />
             <Route path="/orderlist" element={<OrderList />}></Route>
-            <Route path="/profile" element={<Profile />}></Route>
+            <Route
+              path="/profile"
+              element={
+                <ProtectedRoute>
+                  <Profile />
+                </ProtectedRoute>
+              }
+            ></Route>
+
+            {/* Admin Routes */}
+            <Route
+              path="/admin/dashboard"
+              element={
+                <AdminRoute>
+                  <AdminDashboard />
+                </AdminRoute>
+              }
+            ></Route>
+
+            <Route
+              path="/admin/productList"
+              element={
+                <AdminRoute>
+                  <ProductList />
+                </AdminRoute>
+              }
+            ></Route>
           </Routes>
         </main>
         <Footer />

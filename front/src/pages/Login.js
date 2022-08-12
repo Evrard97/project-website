@@ -27,7 +27,6 @@ function Login() {
         email,
         password,
       });
-      //console.log(data);
       ctxDispatch({ type: "USER_SIGNIN", payload: data });
       localStorage.setItem("userInfo", JSON.stringify(data));
       navigate(redirect || "/");
@@ -45,7 +44,6 @@ function Login() {
         email,
         password,
       });
-      //console.log(data);
       ctxDispatch({ type: "USER_SIGNIN", payload: data });
       localStorage.setItem("userInfo", JSON.stringify(data));
       navigate(redirect || "/");
