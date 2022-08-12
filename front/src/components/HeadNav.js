@@ -2,9 +2,11 @@ import { Link } from "react-router-dom";
 import { Store } from "./../Store";
 import { useContext } from "react";
 import logo from "../logo/top-market-logo.gif";
+
 function HeadNav() {
   const { state } = useContext(Store);
   const { cart, userInfo } = state;
+  console.log(userInfo);
   return (
     <div className="container flex items-center justify-between">
       <Link to="/" className="text-[25px] uppercase">
@@ -52,7 +54,7 @@ function HeadNav() {
             <div className="text-2xl">
               <i className="fas fa-user"></i>
             </div>
-            <div className="text-xs leading-3">Pofile</div>
+            <div className="text-xs leading-3">Profile</div>
           </Link>
         ) : (
           <div className="px-8 py-4 text-2xl text-gray-700 hover:text-red-400 flex items-center cursor-pointer relative group">
@@ -73,6 +75,36 @@ function HeadNav() {
                 className="flex items-center px-2 py-3 hover:bg-red-400 transition"
               >
                 <span className="text-black text-[15px]">Mes informations</span>
+              </Link>
+            </div>
+          </div>
+        )}
+        {userInfo && userInfo.data.isAdmin && (
+          <div className="px-8 py-4 text-2xl text-gray-700 hover:text-red-400 flex items-center cursor-pointer relative group">
+            <span className="text-2lg">
+              <i className="fas fa-user"></i>
+            </span>
+            <span className="ml-2 text-black ">Admin</span>
+            <div className="absolute w-full left-0 top-full bg-white shadow-md py-3 opacity-0 group-hover:opacity-100 transition duration-300 invisible group-hover:visible">
+              <Link
+                to="/admin/dashboard"
+                className="flex items-center px-2 py-3 hover:bg-red-400 transition"
+              >
+                <span className="text-black text-[15px]">Tableau de bord</span>
+              </Link>
+
+              <Link
+                to="/admin/productList"
+                className="flex items-center px-2 py-3 hover:bg-red-400 transition"
+              >
+                <span className="text-black text-[15px]">Produits</span>
+              </Link>
+
+              <Link
+                to="/admin/orders"
+                className="flex items-center px-2 py-3 hover:bg-red-400 transition"
+              >
+                <span className="text-black text-[15px]">Commandes</span>
               </Link>
             </div>
           </div>
