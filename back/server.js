@@ -1,4 +1,5 @@
 import express from "express";
+import path from "path";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import productRouter from "./routes/productRouter.js";
@@ -33,6 +34,12 @@ app.use("/api/orders", orderRouter);
 app.get("/", (req, res) => {
   res.send("Server is ready");
 });
+
+const __dirname = path.resolve();
+app.use(express.static(path.join(__dirname, "/front/build")));
+app.get("*", (req, res) =>
+  res.sendFile(path.join(__dirname, "/front/build/index.html"))
+);
 
 app.use((err, req, res, next) => {
   res.status(500).send({ message: err.message });
