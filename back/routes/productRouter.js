@@ -14,6 +14,45 @@ productRouter.get(
   })
 );
 
+productRouter.put(
+  "/:id",
+  isAuth,
+  isAdmin,
+  expressAsyncHandler(async (req, res) => {
+    const productId = req.params.id;
+    const product = await Product.findById(productId);
+    if (product) {
+      product.name = req.body.name;
+      product.reference = req.body.reference;
+      product.price = req.body.price;
+      product.image = req.body.image;
+      product.category = req.body.category;
+      product.mark = req.body.mark;
+      product.stock = req.body.stock;
+      product.description = req.body.description;
+      await product.save();
+      res.send({ message: "Produit modifier" });
+    } else {
+      res.status(404).send({ message: "Produit non trouvé" });
+    }
+  })
+);
+
+productRouter.delete(
+  "/:id",
+  isAuth,
+  isAdmin,
+  expressAsyncHandler(async (req, res) => {
+    const product = await Product.findById(req.params.id);
+    if (product) {
+      await product.remove();
+      res.send({ message: "Product Deleted" });
+    } else {
+      res.status(404).send({ message: "Product Not Found" });
+    }
+  })
+);
+
 const PAGE_SIZE = 3;
 
 productRouter.get(
@@ -27,7 +66,7 @@ productRouter.get(
 
     const products = await Product.find()
       .skip(pageSize * (page - 1))
-      .limit(5);
+      .limit(10);
     const countProducts = await Product.countDocuments();
     res.send({
       products,

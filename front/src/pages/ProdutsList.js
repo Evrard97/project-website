@@ -1,9 +1,11 @@
 import React, { useContext, useEffect, useReducer } from "react";
 import axios from "axios";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Store } from "../Store";
 import Loading from "../components/Loading";
 import DisplayMessage from "./../components/DisplayMessage";
+import { toast } from "react-toastify";
+import { getErrorFromBackend } from "./../utils";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -19,19 +21,34 @@ const reducer = (state, action) => {
       };
     case "FETCH_FAIL":
       return { ...state, loading: false, error: action.payload };
+    case "DELETE_REQUEST":
+      return { ...state, loadingDelete: true, successDelete: false };
+    case "DELETE_SUCCESS":
+      return {
+        ...state,
+        loadingDelete: false,
+        successDelete: true,
+      };
+    case "DELETE_FAIL":
+      return { ...state, loadingDelete: false, successDelete: false };
 
+    case "DELETE_RESET":
+      return { ...state, loadingDelete: false, successDelete: false };
     default:
       return state;
   }
 };
 
 export default function ProductList() {
-  const [{ loading, error, products, pages }, dispatch] = useReducer(reducer, {
+  const [
+    { loading, error, products, pages, loadingDelete, successDelete },
+    dispatch,
+  ] = useReducer(reducer, {
     loading: true,
     error: "",
   });
-
-  const { search, pathname } = useLocation();
+  const navigate = useNavigate();
+  const { search } = useLocation();
   const sp = new URLSearchParams(search);
   const page = sp.get("page") || 1;
 
@@ -48,8 +65,29 @@ export default function ProductList() {
         dispatch({ type: "FETCH_SUCCESS", payload: data });
       } catch (err) {}
     };
-    fetchData();
-  }, [page, userInfo]);
+    if (successDelete) {
+      dispatch({ type: "DELETE_RESET" });
+    } else {
+      fetchData();
+    }
+  }, [page, userInfo, successDelete]);
+
+  const deleteHandler = async (product) => {
+    if (window.confirm("Are you sure to delete?")) {
+      try {
+        await axios.delete(`/api/products/${product._id}`, {
+          headers: { Authorization: `Verify${userInfo.data.token}` },
+        });
+        toast.success("product deleted successfully");
+        dispatch({ type: "DELETE_SUCCESS" });
+      } catch (err) {
+        toast.error(getErrorFromBackend(error));
+        dispatch({
+          type: "DELETE_FAIL",
+        });
+      }
+    }
+  };
 
   return (
     <div>
@@ -68,6 +106,7 @@ export default function ProductList() {
                 <th>PRIX</th>
                 <th>CATEGORIE</th>
                 <th>MARQUE</th>
+                <th>ACTION</th>
               </tr>
             </thead>
             <tbody>
@@ -78,6 +117,21 @@ export default function ProductList() {
                   <td>{product.price}</td>
                   <td>{product.category}</td>
                   <td>{product.mark}</td>
+                  <td>
+                    <button
+                      variant="light"
+                      onClick={() => navigate(`/admin/product/${product._id}`)}
+                    >
+                      Modifier
+                    </button>
+                    &nbsp;
+                    <button
+                      variant="light"
+                      onClick={() => deleteHandler(product)}
+                    >
+                      Supprimer
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>

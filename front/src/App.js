@@ -18,6 +18,8 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import AdminDashboard from "./pages/AdminDashboard";
 import AdminRoute from "./components/AdminRoute";
 import ProductList from "./pages/ProdutsList";
+import ProductEdit from "./pages/ProductEdit";
+import UserList from "./pages/UserList";
 
 function App() {
   return (
@@ -72,6 +74,24 @@ function App() {
               element={
                 <AdminRoute>
                   <ProductList />
+                </AdminRoute>
+              }
+            ></Route>
+
+            <Route
+              path="/admin/product/:id"
+              element={
+                <AdminRoute>
+                  <ProductEdit />
+                </AdminRoute>
+              }
+            ></Route>
+
+            <Route
+              path="/admin/users"
+              element={
+                <AdminRoute>
+                  <UserList />
                 </AdminRoute>
               }
             ></Route>

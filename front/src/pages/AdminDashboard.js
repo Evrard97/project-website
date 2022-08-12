@@ -66,7 +66,7 @@ export default function AdminDashboard() {
                       ? summary.users[0].numUsers
                       : 0}
                   </div>
-                  <div> Utilisateur</div>
+                  <div> Utilisateur(s)</div>
                 </div>
               </div>
             </div>
@@ -86,10 +86,10 @@ export default function AdminDashboard() {
               <div>
                 <div>
                   <div>
-                    $
                     {summary.orders && summary.users[0]
                       ? summary.orders[0].totalSales.toFixed(2)
                       : 0}
+                    €
                   </div>
                   <div> Ventes</div>
                 </div>
@@ -99,15 +99,15 @@ export default function AdminDashboard() {
           <div className="my-3">
             <h2>Ventes</h2>
             {summary.dailyOrders.length === 0 ? (
-              <DisplayMessage>No Sale</DisplayMessage>
+              <DisplayMessage>Pas de vente</DisplayMessage>
             ) : (
               <Chart
                 width="100%"
                 height="400px"
-                chartType="AreaChart"
+                chartType="BarChart"
                 loader={<div>Chargement Chart...</div>}
                 data={[
-                  ["Date", "Sales"],
+                  ["Date", "Ventes"],
                   ...summary.dailyOrders.map((x) => [x._id, x.sales]),
                 ]}
               ></Chart>
@@ -124,7 +124,7 @@ export default function AdminDashboard() {
                 chartType="PieChart"
                 loader={<div>Chargement Chart...</div>}
                 data={[
-                  ["Category", "Products"],
+                  ["Categorie", "Produits"],
                   ...summary.productCategories.map((x) => [x._id, x.count]),
                 ]}
               ></Chart>

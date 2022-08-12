@@ -101,10 +101,10 @@ function HeadNav() {
               </Link>
 
               <Link
-                to="/admin/orders"
+                to="/admin/users"
                 className="flex items-center px-2 py-3 hover:bg-red-400 transition"
               >
-                <span className="text-black text-[15px]">Commandes</span>
+                <span className="text-black text-[15px]">Utilisateurs</span>
               </Link>
             </div>
           </div>
